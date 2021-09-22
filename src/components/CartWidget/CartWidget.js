@@ -1,8 +1,9 @@
+
 const CartWidget = () =>{
     return(
         <div>
             <img src="assets/cart.svg" className="icon" alt="icon" />
-            <p>1</p>
+            <span>1</span>
         </div>
         
     )

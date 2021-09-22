@@ -1,39 +1,17 @@
 .NavBar{
+    padding: 0 5px 0;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    background: beige;
-    align-items: center;
-    height: 60px;
-    background: #a5799e;
-};
-.RightNav{
-    display: flex;
-};
-.LeftNav{
-    display: flex;
-    padding: 0px 5px;
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    max-height: auto;
+    min-height: 60px;
+    background-color: #267e92;
 }
-.LeftNavigation{
-    padding-left: 20px;
-    display: grid;
-    grid-template-columns: repeat(5,auto);
-    grid-gap: 50px;
-    list-style-type: none;
-};
-.RightNavigation{
-    padding-left: 20px;
-    display: flex;
-    justify-content: center;
-};
 .Option{
-    background-color: #f2f0f0;
-    color: black;
+    background-color: #267e92;
     text-decoration: none;
-    border: 25;
+    color: #fcfcfc;
+    border: none;
     margin: 2px;
+}
+.OptionLeft{
+    margin-left: 30px;
 }
