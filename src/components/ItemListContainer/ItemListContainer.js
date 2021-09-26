@@ -41,7 +41,7 @@ const ItemListContainer = ()=> {
     }
 
     return (
-        <div className="row row-cols-1 row-cols-md-4 w-100 p-5">
+        <div className="row row-cols-1 row-cols-md-3 w-100 p-5">
             <ItemList props={listClothes} />
         </div>
     )

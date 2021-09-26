@@ -1,11 +1,20 @@
-const ItemDetail = ({name,image, price, description, stock})=> {
+import Count from '../ItemCount/ItemCount'
+
+const ItemDetail = ({props})=> {
     return(
-        <div>
-            <h3>{name}</h3>
-            <img src={image} alt='imagen'/>
-            <span>{price}</span>
-            <p>{description}</p>
-            <span>{stock}</span>
+        <div className="container">
+            <div className="row">
+                <div className="col-6">
+                    <img src={`../../${props.image}`} alt='imagen'/>
+                </div>
+                <div className="col-6">
+                    <h3>{props.name}</h3>
+                    <span>{props.price}</span>
+                    <p>{props.description}</p>
+                    <span>{props.stock}</span>
+                    <Count props={props}/>
+                </div>
+            </div> 
         </div>
     )
 }
