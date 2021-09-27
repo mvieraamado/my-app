@@ -1,18 +1,18 @@
 import Count from '../ItemCount/ItemCount'
 
-const ItemDetail = ({props})=> {
+const ItemDetail = ({item})=> {
     return(
         <div className="container">
             <div className="row">
                 <div className="col-6">
-                    <img src={`../../${props.image}`} alt='imagen'/>
+                    <img src={item.image} alt='imagen'/>
                 </div>
                 <div className="col-6">
-                    <h3>{props.name}</h3>
-                    <span>{props.price}</span>
-                    <p>{props.description}</p>
-                    <span>{props.stock}</span>
-                    <Count props={props}/>
+                    <h3>{item.name}</h3>
+                    <span>{item.price}</span>
+                    <p>{item.description}</p>
+                    <span>{item.stock}</span>
+                    <Count props={item}/>
                 </div>
             </div> 
         </div>
