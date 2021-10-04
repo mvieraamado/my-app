@@ -22,11 +22,11 @@ const NavBar = () => {
                     <li className="nav-item m-1">
                         <button className="Option">Contact</button>
                     </li>
-                    
+                  {/* {props.map(prod => <Link key={prod.id} to={`/category/${prod.category}`} activeClassName="navLink">{prod.category}</Link>)}  */}
                 </ul>
                 <div className="OptionLeft d-flex justify-content-lg-space-around">
                     <button className="Option">Log In</button>
-                    <CartWidget />  
+                    <CartWidget/>  
                 </div>
             </div>
         </div>

@@ -1,29 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../../Context/CartContext";
 
-const Counter = ({props, onConfirm})=>{
-    const [count, setCount] = useState(0)
+const Counter = ({props, setCount})=>{
+    const [quantity, setQuantity] = useState(0)
+    const {addItem} = useContext(CartContext)
      
-    const RestarContador = ()=>{
-        if (count > 0){
-        setCount(count -1)
+    const remove = ()=>{
+        if (quantity > 0){
+        setQuantity(quantity -1)
     }};
     
-    const Sumar = ()=>{
-        if(count < props.stock){ 
-            setCount(count +1)
+    const add = ()=>{
+        if(quantity < props.stock){ 
+            setQuantity(quantity +1)
         }
     }
 
+    const onAddToCart = ()=>{
+        addItem(props, quantity)
+        setCount(quantity)
+        console.log('agregado')
+    }
 
     return(
         <div className="d-flex justify-content-center flex-column">
             <div>
-                <p>{count}</p>
-                <button onClick= {RestarContador} className="btn btn-secondary m-2">-</button>
-                <button onClick= {Sumar} className="btn btn-secondary m-2">+</button>
+                <p>{quantity}</p>
+                <button onClick= {remove} className="btn btn-secondary m-2">-</button>
+                <button onClick= {add} className="btn btn-secondary m-2">+</button>
             </div>
             <div>
-                <button onClick={()=> onConfirm(count)} className="btn btn-secondary">Agregar al carrito</button>
+                <button onClick={()=> onAddToCart()} className="btn btn-secondary">Agregar al carrito</button>
             </div>
         </div>
     )

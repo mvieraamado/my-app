@@ -27,7 +27,7 @@ const ItemDetailContainer = ()=> {
         const list = getProducts();
         list.then(p => {
             console.log(p)
-            const producto = p.find(prod => prod.id == name)
+            const producto = p.find(prod => prod.id === Number(name))
             console.log(producto);
             setListClothes(producto)
         })
