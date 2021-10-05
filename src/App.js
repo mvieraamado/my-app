@@ -25,6 +25,9 @@ const App = () => {
             <Route path="/item/:name">
               <ItemDetailContainer/>
             </Route>
+            <Route path="/cart">
+              <Cart/>
+            </Route>
           </Switch>
         </BrowserRouter>
       </CartContextProvider>

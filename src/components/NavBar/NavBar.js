@@ -1,8 +1,11 @@
 import CartWidget from '../CartWidget/CartWidget';
 import './navBar.css';
 import { Link, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../../Context/CartContext';
 
 const NavBar = () => {
+    const { quantity } = useContext(CartContext)
     return(
     <nav className="navbar navbar-expand-lg navbar-light NavBar">
         <div className="container-fluid">
@@ -22,11 +25,10 @@ const NavBar = () => {
                     <li className="nav-item m-1">
                         <button className="Option">Contact</button>
                     </li>
-                  {/* {props.map(prod => <Link key={prod.id} to={`/category/${prod.category}`} activeClassName="navLink">{prod.category}</Link>)}  */}
                 </ul>
                 <div className="OptionLeft d-flex justify-content-lg-space-around">
                     <button className="Option">Log In</button>
-                    <CartWidget/>  
+                    <CartWidget seeQuantity={quantity}/>  
                 </div>
             </div>
         </div>

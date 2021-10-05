@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom'
 
 const ItemDetail = ({item})=> {
     const [count, setCount] = useState(0);
+    const [cart, setCart] = useState(true)
     console.log('cantidad ' + count);
-    
-    // const addToCart = (productNumber)=>{
-    //     setQuantity(productNumber)
-    //     console.log('Producto agregado')
-    // }
+
+    const addToCart = () =>{
+        setCart(false);
+    }
+    const handleOnClick = () => {
+        setCart(true);
+    }
 
     if(!item){
         return(
@@ -29,9 +32,8 @@ const ItemDetail = ({item})=> {
                             <p className="card-text">${item?.price}</p>
                             <p className="card-text">{item.description}</p>
                             <span>Stock: {item.stock}</span>
-                            {count === 0
-                            ?<Count props={item} setCount={setCount}/>
-                            :<Link to={'/cart'} className="btn btn-primary m-2">Ir al carrito</Link>}
+                            <Count props={item} initial={0} setCount={setCount} onAdd={addToCart}/>
+                            <Link to={'/cart'} className="btn btn-primary m-2" onClick={handleOnClick}>Ir al carrito</Link>
                         </div>
                     </div>
                 </div>

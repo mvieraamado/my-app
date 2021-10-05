@@ -5,6 +5,7 @@ export const CartContext = createContext([])
 export const CartContextProvider = ({children}) =>{
     const [clothesCart, setClothesCart]= useState([])
     const [quantity, setQuantity]= useState(0)
+    const [totalPrice, setTotalPrice] = useState(0);
 
     function removeItem(cont, item){
         let i= cont.indexOf(item)
@@ -12,6 +13,18 @@ export const CartContextProvider = ({children}) =>{
             cont.splice(i, 1)
         }
     }
+
+    const removeQuantity = (itemQuantity) => {
+        setQuantity(quantity-itemQuantity);
+      };
+    
+      const changeQuantity = (count) => {
+          setQuantity(count);
+      };
+      const changeTotalPrice = (priceTotal) => {
+        setTotalPrice(priceTotal);
+    };
+
     const clear =()=>{
         setClothesCart(undefined)
         setQuantity(0)
@@ -30,7 +43,11 @@ export const CartContextProvider = ({children}) =>{
             clear,
             quantity,
             removeItem,
-            setClothesCart
+            setClothesCart,
+            changeQuantity,
+            changeTotalPrice,
+            removeQuantity,
+            totalPrice,
         }}>
             {children}
         </CartContext.Provider>
