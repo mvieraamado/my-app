@@ -6,7 +6,9 @@ const CartWidget = ({seeQuantity}) =>{
     const handleOnClick= ()=>{
         setCart(true)
     }
-
+    if(seeQuantity <= 0){
+        return<span className="d-none">{seeQuantity}</span>    
+    }
     return(
         <div>
             <Link to={`/cart`}><img src="assets/cart.svg" className="icon" alt="icon" onClick={handleOnClick}/></Link>
