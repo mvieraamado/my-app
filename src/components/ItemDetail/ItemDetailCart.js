@@ -28,7 +28,7 @@ console.log(item.totalPrice)
             <p className="card-text">Agregados: {item.quantity}</p>
             <p className="card-text">Precio total $: {item.totalPrice}</p>
             <button type="button" className="btn btn-danger" onClick={onRemoveCart}>Eliminar</button>
-        </div>      
+        </div>
     </div>
     )
 }
