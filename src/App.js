@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import Cart from './components/Cart/Cart'
 import { CartContextProvider } from './Context/CartContext';
+import { Home } from './components/Home/Home';
 
 const App = () => {
 
@@ -16,10 +17,13 @@ const App = () => {
             <NavBar/>
           </header>
           <Switch>
+            <Route exact path="/">
+              <Home/>
+            </Route>
             <Route path="/collection">
               <ItemListContainer/>
             </Route>
-            <Route path="/category/:id">
+            <Route path="/category/:categoryid">
               <ItemListContainer/>
             </Route>
             <Route path="/item/:name">

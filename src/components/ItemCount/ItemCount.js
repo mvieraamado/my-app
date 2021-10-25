@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../../Context/CartContext";
 
-const Counter = ({props, setCount, onAdd, initial})=>{
-    const [count, setItemCount] = useState(initial)
+const Counter = ({props,setCount})=>{
+    const [count, setItemCount] = useState(0)
     const {quantity, changeQuantity, addItem, clothesCart, setClothesCart} = useContext(CartContext)
 
-    setCount(count)
-     
     const remove = ()=>{
         if (count > 0){
         setItemCount(count -1)
@@ -47,25 +45,22 @@ const Counter = ({props, setCount, onAdd, initial})=>{
             };
       
             clothesCart
-            ? addItem([...clothesCart, newProduct])
-            : addItem([newProduct]);
+            ? addItem([...clothesCart, newProduct]) 
+            : addItem([newProduct])
         } 
-        onAdd();
-        console.log(clothesCart)
-        console.log(quantity)      
+        setCount(count)
     }
-
     return(
-        <div className="d-flex justify-content-center flex-column">
-            <div>
-                <p>{count}</p>
-                <button onClick= {remove} className="btn btn-secondary m-2">-</button>
-                <button onClick= {add} className="btn btn-secondary m-2">+</button>
-            </div>
-            <div>
-                <button onClick={onAddToCart} className="btn btn-secondary">Agregar al carrito</button>
-            </div>
+        <>
+        <div>
+            <p>{count}</p>
+            <button  onClick= {remove} className="btn btn-dark m-2">-</button>
+            <button onClick= {add} className="btn btn-dark m-2">+</button>
         </div>
+        <div>
+            <button onClick={onAddToCart} className="btn btn-dark">Añadir al carrito</button>
+        </div>
+        </>
     )
 }
 

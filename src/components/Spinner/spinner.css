@@ -1,0 +1,28 @@
+.spinner{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 50px auto;
+    padding-top: 150px;
+}
+.loading{
+    border: 4px solid #1d1d1d;
+    border-left-color: transparent;
+    border-radius: 50%;
+}
+.loading{
+    border: 4px solid #212121;
+    border-left-color: transparent;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear, infinite;
+}
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

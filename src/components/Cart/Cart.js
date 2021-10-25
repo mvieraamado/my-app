@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 import ItemDetailCart from '../ItemDetail/ItemDetailCart';
@@ -6,64 +6,34 @@ import { db } from '../../services/firebase/firebase';
 import {collection, addDoc, getDoc, doc, Timestamp, writeBatch} from 'firebase/firestore';
 
 const Cart= ()=>{
-    const [listProductsCart, setListProductsCart] = useState([])
-    const { clothesCart, clear, totalPrice} = useContext(CartContext);
-    const [processingOrder, setProcessingOrder] = useState(false)
-    console.log(clothesCart)
+    const { clothesCart, clear, getTotal} = useContext(CartContext);
+    // eslint-disable-next-line
+    const [processingOrder, setProcessingOrder] = useState(false) 
 
-    useEffect(()=>{
-        const list= clothesCart
-        console.log(list)
-        setListProductsCart(list)
-    },[])
-
-    if(listProductsCart.length === 0){
-        return <div>
+    if(clothesCart.length === 0){
+        return <>
             <div>
                 <h3>Carrito vacío</h3>
-                <Link to={`/collection`} className="btn">Volver a la tienda</Link>
+                <Link to={`/collection`} className="btn btn-dark m-4">Volver a la tienda</Link>
             </div>
-        </div>
-    }
-
-    const clearCart = () => {
-        clear();
-        setListProductsCart([]);
-        console.log('limpiar')
-    }
-
-    function totalPrices(){
-        return totalPrice
+        </>
     }
 
     const confirmPurchase = () => {
 
         setProcessingOrder(true)
-        const name = document.getElementById("name").value;
-        const mobile = document.getElementById("mobile").value;
-        const email = document.getElementById("email").value;
-
-        const clearCart = () => {
-            clear();
-            setListProductsCart([]);
-            console.log('limpiar')
-        }
-
-        // function sumOfPrices(lista){
-        //     let total=0;
-        //     let precios = lista;
-        //     precios.forEach(function(a){total += a.totalPrice;});
-        //     console.log(total);
-        //     return total;
-        
-        // }
+        const inputName = document.getElementById("inputName").value;
+        const inputName2 = document.getElementById("inputName2").value;
+        const inputMobile = document.getElementById("inputMobile").value;
+        const inputEmail = document.getElementById("inputEmail").value;
 
         const purchaseObject = {
-            buyer: name,
-            mobile: mobile,
-            email: email,
-            items: listProductsCart,
-            total: totalPrices(listProductsCart),
+            firstName: inputName,
+            lastName: inputName2,
+            mobile: inputMobile,
+            email: inputEmail,
+            items: clothesCart,
+            total: getTotal(),
             date: Timestamp.fromDate(new Date())
         }
 
@@ -94,28 +64,50 @@ const Cart= ()=>{
                 setProcessingOrder(false)
 
             })
-            clearCart();
+            clear();
         }
     }
     
     return (
-        <>
-        <div>
-            <div>
-                {listProductsCart.map(e => <a key={e.id}><ItemDetailCart item={e}></ItemDetailCart></a>)}
+        <div className="p-3">
+            <h3 className="p-4">Carrito</h3>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio unitario</th>
+                        <th scope="col">Precio final</th>
+                    </tr>
+                </thead>
+            {clothesCart.map(e => <tbody key={e.id}><ItemDetailCart item={e}></ItemDetailCart></tbody>
+            )}</table>
+            <h5 className="pb-4">Total: ${getTotal()}</h5>
+            <button type="button" className="btn btn-danger m-2" onClick={clear}>Vaciar carrito</button>
+            <Link to={`/collection`} className="btn btn-dark m-2">Volver</Link>
+            <div className="w-100 p-5 mt-3">
+                <h5>Ingrese sus datos si desea confirmar la compra</h5>
+                <form className="row g-3">
+                    <div className="col-12">
+                        <input type="text" className="form-control" id="inputName" placeholder="Nombre" required/>
+                    </div>
+                    <div className="col-12">
+                        <input type="text" className="form-control" id="inputName2" placeholder="Apellido" required/>
+                    </div>
+                    <div className="col-12">
+                        <input type="text" className="form-control" id="inputMobile" placeholder="Teléfono" required/>
+                    </div>
+                    <div className="col-12">
+                        <input type="email" className="form-control" id="inputEmail" placeholder="nombre@ejemplo.com" required/>
+                    </div>
+                    <div className="col-12">
+                        <button onClick={() => confirmPurchase()} className="btn btn-dark">Confirmar</button>
+                    </div>
+                </form>
             </div>
-            <span>Total: {totalPrices(listProductsCart)}</span>
-            <button type="button" className="btn" onClick={clearCart}>Vaciar carrito</button>
-            <Link to={`/collection`} className="btn">Volver</Link>
-            <h5>Ingrese sus datos para finalizar compra</h5>
-            <input type="text" id="name" placeholder="Nombre"></input>
-            <input type="text" id="mobile" placeholder="Teléfono"></input>
-            <input type="text" id="email" placeholder="Email"></input>
-            <button onClick={() => confirmPurchase()} className="btn btn-success">Confirmar</button>
         </div>
-        </>
     )
 }
-
 
 export default Cart

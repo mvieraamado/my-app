@@ -1,35 +1,30 @@
 import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
+import { Spinner } from "../Spinner/Spinner";
+import './itemDetailCart.css'
 
 const ItemDetailCart= ({item})=>{
     const { removeItem, removeQuantity, clothesCart} = useContext(CartContext)
-
-console.log(item.totalPrice)
     if(!item){
-        return <div>
-        <h3>Loading...</h3>
-        </div>
+        return <Spinner/>
     }
-    
+
     const onRemoveCart = () => {
         removeItem(clothesCart, item);
         removeQuantity(item.quantity);
-        console.log('Eliminar')
-
     }
-
+    
     return (
-    <div className="card bg-transparent" >
-        <p>Producto en carrito</p>
-        <img src={item.image} className="card-img-top" alt="..."></img>
-        <div className="card-body">
-            <h5 className="card-title">{item.name}</h5>
-            <p className="card-text">Precio $: {item.price}</p>
-            <p className="card-text">Agregados: {item.quantity}</p>
-            <p className="card-text">Precio total $: {item.totalPrice}</p>
-            <button type="button" className="btn btn-danger" onClick={onRemoveCart}>Eliminar</button>
-        </div>
-    </div>
+        <>
+        <tr>
+            <td><img src={item.image} className="cardImage" alt={item.image}></img></td>
+            <td>{item.name}</td>
+            <td>{item.quantity}</td>
+            <td>${item.price}</td>
+            <td>${item.totalPrice}</td>
+            <td><button type="button" className="btn btn-white border-none" ><img src="assets/delete.svg" alt="icon-delete"onClick={onRemoveCart}/></button></td>
+        </tr>
+        </>
     )
 }
 

@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import Count from '../ItemCount/ItemCount';
 import { Link } from 'react-router-dom'
+import { Spinner } from '../Spinner/Spinner';
 
 const ItemDetail = ({item})=> {
-    const [count, setCount] = useState(0);
-    const [cart, setCart] = useState(true)
-    console.log('cantidad ' + count);
+    const [, setCart] = useState(true)
+    const [ count, setCount] = useState(0)
 
-    const addToCart = () =>{
-        setCart(false);
-    }
     const handleOnClick = () => {
         setCart(true);
     }
 
     if(!item){
-        return(
-            <h1>Loading...</h1>
-        )
+        return <Spinner/>
     }
     return(
         <div className="container w-100 p-3">
@@ -31,9 +26,11 @@ const ItemDetail = ({item})=> {
                             <h5 className="card-title">{item?.name}</h5>
                             <p className="card-text">${item?.price}</p>
                             <p className="card-text">{item.description}</p>
-                            <span>Stock: {item.stock}</span>
-                            <Count props={item} initial={0} setCount={setCount} onAdd={addToCart}/>
-                            <Link to={'/cart'} className="btn btn-primary m-2" onClick={handleOnClick}>Ir al carrito</Link>
+                            <p>Stock: {item.stock}</p>  
+                             
+                            { count > 0
+                            ?<Link to={'/cart'} className="btn btn-dark m-2" onClick={handleOnClick}>Ir al carrito</Link>
+                            :<Count props={item} setCount={setCount}/>}
                         </div>
                     </div>
                 </div>

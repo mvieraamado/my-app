@@ -1,35 +1,32 @@
 import ItemDetail from '../ItemDetail/ItemDetail';
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router';
-import { getDoc, doc } from '@firebase/firestore';
-import { db } from '../../services/firebase/firebase';
+import { getProduct } from '../../services/firebase/firebase';
+import { Spinner } from '../Spinner/Spinner';
 
 const ItemDetailContainer = ()=> {
     const { name } = useParams();
-    console.log(name);
-    const [ loading, setLoading] = useState(true);
-    const [products, setListClothes] = useState(undefined);
+    const [, setLoading] = useState(true);
+    const [product, setProduct] = useState(undefined);
 
     useEffect (()=>{
         setLoading(true)
-        getDoc(doc(db, 'collection', name)).then((querySnapshot)=> {
-            console.log({id: querySnapshot.id, ...querySnapshot.data()})
-            const product = {id: querySnapshot.id, ...querySnapshot.data()}
-            setListClothes(product)
-        }).catch((error)=> {
-            console.log('Error searching', error)
+        getProduct(name).then(product=>{
+            setProduct(product)
+        }).catch((error)=>{
+            console.log(error)
         }).finally(()=>{
             setLoading(false)
         })
         return (()=>{
-            setListClothes(undefined)
+            setLoading(true)
+            setProduct(undefined)
         })
     },[name])
-    console.log(products);
     
     return (
         <div>
-            {products === undefined ? <h1>Loading...</h1> : <ItemDetail item={products}/>}
+            {product === undefined ? <Spinner/> : <ItemDetail item={product}/>}
         </div>
     )
 }
