@@ -1,4 +1,4 @@
-.NavBar{
+.navBar{
     padding-bottom: 50px;
     padding: 0 5px 0;
     width: 100%;
@@ -17,14 +17,14 @@
 .logo:hover{
     color:#4f4c4c;
 }
-.Option{
+.option{
     background-color: #ffffff;
     text-decoration: none;
     color: #292626;
     border: none;
     margin: 2px;
 }
-.Option:hover{
+.option:hover{
     color: #9b9696;
     text-decoration: overline;
 }
@@ -44,6 +44,4 @@
 .dropdownItem:hover{
     color: #e85e5e;
 }
-.OptionLeft{
-    margin-left: 30px;
-}
+
